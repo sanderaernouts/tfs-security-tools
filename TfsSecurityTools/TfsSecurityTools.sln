@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TfsSecurityTools", "TfsSecu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TfsSecurityTools.QuickTest", "TfsSecurityTools.QuickTest\TfsSecurityTools.QuickTest.csproj", "{8F3C5EEB-212B-40DB-B973-DBBC060002D2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TfsSecurityTools.Tests", "TfsSecurityTools.Tests\TfsSecurityTools.Tests.csproj", "{8BAE7FB7-5C72-4850-85E0-51B7A15E18BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TfsTestingHarness", "TfsTestingHarness\TfsTestingHarness.csproj", "{2060814F-CFA5-4881-B158-CE0EB8E96F0C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{8F3C5EEB-212B-40DB-B973-DBBC060002D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F3C5EEB-212B-40DB-B973-DBBC060002D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F3C5EEB-212B-40DB-B973-DBBC060002D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BAE7FB7-5C72-4850-85E0-51B7A15E18BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BAE7FB7-5C72-4850-85E0-51B7A15E18BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BAE7FB7-5C72-4850-85E0-51B7A15E18BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BAE7FB7-5C72-4850-85E0-51B7A15E18BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2060814F-CFA5-4881-B158-CE0EB8E96F0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2060814F-CFA5-4881-B158-CE0EB8E96F0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2060814F-CFA5-4881-B158-CE0EB8E96F0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2060814F-CFA5-4881-B158-CE0EB8E96F0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

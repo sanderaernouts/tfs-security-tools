@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{625F5C08-B5A5-4767-AD12-E0F3D750ED7B}</ProjectGuid>
+    <ProjectGuid>{2060814F-CFA5-4881-B158-CE0EB8E96F0C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TfsSecurityTools</RootNamespace>
-    <AssemblyName>TfsSecurityTools</AssemblyName>
+    <RootNamespace>TfsTestingHarness</RootNamespace>
+    <AssemblyName>TfsTestingHarness</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,18 +30,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.TeamFoundation.Build.Common, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.TeamFoundation.Client, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.TeamFoundation.Common, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.TeamFoundation.VersionControl.Client, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.TeamFoundation.VersionControl.Common, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.TeamFoundation.Client.12.0.0.0.Fakes">
+      <HintPath>FakesAssemblies\Microsoft.TeamFoundation.Client.12.0.0.0.Fakes.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.TeamFoundation.WorkItemTracking.Client, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.TeamFoundation.WorkItemTracking.Client.12.0.0.0.Fakes">
+      <HintPath>FakesAssemblies\Microsoft.TeamFoundation.WorkItemTracking.Client.12.0.0.0.Fakes.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\System.Management.Automation_PowerShell_3.0.6.3.9600.17400\lib\net40\System.Management.Automation.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,27 +48,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CmdLets\GetApplicationGroup.cs" />
-    <Compile Include="CmdLets\GetProjectCollectionCmdLet.cs" />
-    <Compile Include="CmdLets\GetTeamProjectCmdLet.cs" />
-    <Compile Include="Extractors\TeamProjectCollectionExtractor.cs" />
-    <Compile Include="Extractors\ProjectPermissionExtractor.cs" />
-    <Compile Include="Extractors\TeamProjectExtractor.cs" />
-    <Compile Include="Models\Permission.cs" />
-    <Compile Include="Models\PermissionScope.cs" />
-    <Compile Include="Models\PermissionsReport.cs" />
-    <Compile Include="Models\ProjectLevelPermissions.cs" />
-    <Compile Include="Models\TeamProjectCollectionModel.cs" />
-    <Compile Include="Models\TeamProjectModel.cs" />
-    <Compile Include="Models\TfsTeamProject.cs" />
-    <Compile Include="Models\TfsApplicationGroup.cs" />
+    <Compile Include="Options\TeamProjectCollectionOptions.cs" />
+    <Compile Include="ProjectCollectionHarness.cs" />
+    <Compile Include="TeamFoundationServerHarness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\PermissionFlags.cs" />
-    <Compile Include="Utils\PermissionHelper.cs" />
+    <Compile Include="Options\TeamFoundationServerOptions.cs" />
+    <Compile Include="WorkItemStoreHarness.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <None Include="packages.config" />
+    <Fakes Include="Fakes\Microsoft.TeamFoundation.Client.fakes" />
+  </ItemGroup>
+  <ItemGroup>
+    <Fakes Include="Fakes\Microsoft.TeamFoundation.WorkItemTracking.Client.fakes" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
