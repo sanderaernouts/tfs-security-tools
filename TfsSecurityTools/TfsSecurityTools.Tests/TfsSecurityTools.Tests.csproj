@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Extractors\TeamProjectExtractorTest.cs" />
     <Compile Include="Extractors\TeamProjectCollectionExtractorTest.cs" />
+    <Compile Include="Extractors\ApplicationGroupExtractorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

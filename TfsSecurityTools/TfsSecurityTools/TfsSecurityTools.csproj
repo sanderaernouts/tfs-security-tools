@@ -52,9 +52,11 @@
     <Compile Include="CmdLets\GetApplicationGroup.cs" />
     <Compile Include="CmdLets\GetProjectCollectionCmdLet.cs" />
     <Compile Include="CmdLets\GetTeamProjectCmdLet.cs" />
+    <Compile Include="Extractors\ApplicationGroupExtractor.cs" />
     <Compile Include="Extractors\TeamProjectCollectionExtractor.cs" />
     <Compile Include="Extractors\ProjectPermissionExtractor.cs" />
     <Compile Include="Extractors\TeamProjectExtractor.cs" />
+    <Compile Include="Models\ApplicationGroupModel.cs" />
     <Compile Include="Models\Permission.cs" />
     <Compile Include="Models\PermissionScope.cs" />
     <Compile Include="Models\PermissionsReport.cs" />
@@ -69,7 +71,13 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <None Include="Install.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
+    <None Include="TfsSecurityTools.psd1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -25,7 +25,7 @@ namespace TfsTestingHarness
         public TeamFoundationServerHarness(string projectCollectionUrl, params string[] teamProjects)
         {
             _context = ShimsContext.Create();
-            _projectCollections = new List<ProjectCollectionHarness(){ new ProjectCollectionHarness(new Uri(projectCollectionUrl), teamProjects)};
+            _projectCollections = new List<ProjectCollectionHarness>(){ new ProjectCollectionHarness(new Uri(projectCollectionUrl), teamProjects)};
         }
 
         public TeamFoundationServerHarness(TeamFoundationServerOptions options)

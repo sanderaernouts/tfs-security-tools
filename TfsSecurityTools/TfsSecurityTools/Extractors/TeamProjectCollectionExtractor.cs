@@ -1,5 +1,6 @@
 ﻿using Microsoft.TeamFoundation.Client;
 using Microsoft.TeamFoundation.Framework.Client;
+using Microsoft.TeamFoundation.Server;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,8 +22,9 @@ namespace TfsSecurityTools.Extractors
             TfsConfigurationServer configurationServer =
                     TfsConfigurationServerFactory.GetConfigurationServer(uri);
 
-            ITeamProjectCollectionService tpcService = configurationServer.GetService<ITeamProjectCollectionService>();
 
+            ITeamProjectCollectionService tpcService = configurationServer.GetService<ITeamProjectCollectionService>();
+            
             /*
             foreach (TeamProjectCollection tpc in tpcService.GetCollections())
             {
