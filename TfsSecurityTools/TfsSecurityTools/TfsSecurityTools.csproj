@@ -50,17 +50,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CmdLets\GetApplicationGroup.cs" />
+    <Compile Include="CmdLets\GetMember.cs" />
     <Compile Include="CmdLets\GetProjectCollectionCmdLet.cs" />
     <Compile Include="CmdLets\GetTeamProjectCmdLet.cs" />
     <Compile Include="Extractors\ApplicationGroupExtractor.cs" />
+    <Compile Include="Extractors\MembershipExtractor.cs" />
     <Compile Include="Extractors\TeamProjectCollectionExtractor.cs" />
     <Compile Include="Extractors\ProjectPermissionExtractor.cs" />
     <Compile Include="Extractors\TeamProjectExtractor.cs" />
     <Compile Include="Models\ApplicationGroupModel.cs" />
+    <Compile Include="Models\MemberModel.cs" />
     <Compile Include="Models\Permission.cs" />
     <Compile Include="Models\PermissionScope.cs" />
     <Compile Include="Models\PermissionsReport.cs" />
     <Compile Include="Models\ProjectLevelPermissions.cs" />
+    <Compile Include="Models\TeamFoundationIdentityModelBase.cs" />
     <Compile Include="Models\TeamProjectCollectionModel.cs" />
     <Compile Include="Models\TeamProjectModel.cs" />
     <Compile Include="Models\TfsTeamProject.cs" />

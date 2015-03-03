@@ -53,16 +53,17 @@ namespace TfsSecurityTools.Extractors
         {
             var ims = collection.GetService<IIdentityManagementService>();
             TeamFoundationIdentity[] groups = ims.ListApplicationGroups(scopeId, Microsoft.TeamFoundation.Framework.Common.ReadIdentityOptions.None);
-
-            return WrapGroups(groups);
+        
+            return WrapGroups(collection.Uri.ToString(), groups);
         }
 
-        private static IEnumerable<ApplicationGroupModel> WrapGroups(TeamFoundationIdentity[] groups)
+        private static IEnumerable<ApplicationGroupModel> WrapGroups(string collectionUrl, TeamFoundationIdentity[] groups)
         {
             return groups.Select(group => new ApplicationGroupModel()
                 {
-                    Name = group.DisplayName,
-                    Guid = group.TeamFoundationId
+                    DisplayName = group.DisplayName,
+                    TeamFoundationId = group.TeamFoundationId,
+                    CollectionUrl = collectionUrl
                 }).ToList();
         }
     }

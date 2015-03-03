@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TfsSecurityTools.Models
 {
-    public class ApplicationGroupModel : TeamFoundationIdentityModelBase
+    public class MemberModel : TeamFoundationIdentityModelBase
     {
     }
 }
