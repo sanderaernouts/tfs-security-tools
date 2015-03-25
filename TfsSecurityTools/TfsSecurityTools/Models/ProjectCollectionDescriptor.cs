@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace TfsSecurityTools.Models
 {
-    public class ApplicationGroupModel : TeamFoundationIdentityModelBase
+    public class ProjectCollectionDescriptor
     {
+        public string DisplayName { get; set; }
+        public string Uri { get; set; }
     }
 }

@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using TfsSecurityTools.Models;
 using TfsTestingHarness;
 using TfsTestingHarness.Options;
-
+/*
 namespace TfsSecurityTools.Tests.Extractors
 {
     [TestClass]
+    
     public class TeamProjectCollectionExtractorTest
     {
         [TestMethod]
@@ -58,3 +59,4 @@ namespace TfsSecurityTools.Tests.Extractors
         }
     }
 }
+*/

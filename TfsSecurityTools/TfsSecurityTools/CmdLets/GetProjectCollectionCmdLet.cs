@@ -14,7 +14,7 @@ namespace TfsSecurityTools.CmdLets
         private string[] _urls;
 
         [Parameter(Mandatory=true, Position=0, ValueFromPipeline=true)]
-        public string[] urls
+        public string[] Url
         {
             get { return _urls; }
             set { _urls = value; }

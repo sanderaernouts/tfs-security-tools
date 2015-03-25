@@ -12,30 +12,37 @@ namespace TfsSecurityTools.Extractors
 {
     public class MembershipExtractor
     {
-        public static IEnumerable<MemberModel> Extract(string url, string id)
+        public static ApplicationGroup Extract(string url, string id)
         {
             if (url == null)
                 throw new ArgumentNullException("url");
+
+            Guid groupGuid = new Guid(id);
 
             Uri uri = new Uri(url);
 
             TfsTeamProjectCollection collection = TfsTeamProjectCollectionFactory.GetTeamProjectCollection(uri);
 
             var ims = collection.GetService<IIdentityManagementService>();
-            Guid [] guids = new Guid[1] {new Guid(id)};
+            Guid[] guids = new Guid[1] { groupGuid };
             TeamFoundationIdentity[] identies = ims.ReadIdentities(guids, MembershipQuery.Expanded);
-            List<MemberModel> membership = new List<MemberModel>();
+            TeamFoundationIdentity group = identies.First();
 
-            foreach(TeamFoundationIdentity identity in identies)
+            List<TfsIdentityDescriptor> membership = new List<TfsIdentityDescriptor>();
+
+            foreach (IdentityDescriptor member in group.Members)
             {
-                foreach (IdentityDescriptor member in identity.Members)
-                {
-                    TeamFoundationIdentity i = ims.ReadIdentity(member, MembershipQuery.None, ReadIdentityOptions.ExtendedProperties);
-                    membership.Add(new MemberModel() { DisplayName = i.DisplayName, TeamFoundationId = i.TeamFoundationId, CollectionUrl = url });
-                }
+                TeamFoundationIdentity i = ims.ReadIdentity(member, MembershipQuery.None, ReadIdentityOptions.ExtendedProperties);
+                membership.Add(new TfsIdentityDescriptor() { DisplayName = i.DisplayName, TeamFoundationId = i.TeamFoundationId });
             }
 
-            return membership;
+            return new ApplicationGroup()
+            {
+                DisplayName = group.DisplayName,
+                TeamFoundationId = Guid.Parse(id),
+                Members = membership.ToArray()
+            };
+            
         }
     }
 }

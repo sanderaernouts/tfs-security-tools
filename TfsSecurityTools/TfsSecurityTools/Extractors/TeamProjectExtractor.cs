@@ -11,7 +11,7 @@ namespace TfsSecurityTools.Extractors
 {
     public class TeamProjectExtractor
     {
-        public static List<TeamProjectModel> Extract(string projectCollectionUrl)
+        public static List<ProjectDescriptor> Extract(string projectCollectionUrl)
         {
             if(projectCollectionUrl == null)
                 throw new ArgumentNullException("url");
@@ -24,21 +24,23 @@ namespace TfsSecurityTools.Extractors
             return WrapProjects(store.Projects);
         }
 
-        private static List<TeamProjectModel> WrapProjects (ProjectCollection projects)
+        private static List<ProjectDescriptor> WrapProjects(ProjectCollection projects)
         {
-            List<TeamProjectModel> projectModels = new List<TeamProjectModel>();
+            List<ProjectDescriptor> projectModels = new List<ProjectDescriptor>();
             foreach (Project project in projects)
                 projectModels.Add(WrapProject(project));
             return projectModels;
         }
 
-        private static TeamProjectModel WrapProject (Project project)
+        private static ProjectDescriptor WrapProject(Project project)
         {
-            return new TeamProjectModel()
+            TfsTeamProjectCollection collection = project.Store.TeamProjectCollection;
+            return new ProjectDescriptor()
             {
-                Name = project.Name,
-                Collection = project.Store.TeamProjectCollection.Uri.ToString(),
-                Url = project.Uri.ToString()
+                DisplayName = project.Name,
+                Uri = project.Uri.AbsoluteUri,
+                CollectionDisplayName = collection.DisplayName,
+                CollectionUrl = collection.Uri.ToString()
             };
         }
     }

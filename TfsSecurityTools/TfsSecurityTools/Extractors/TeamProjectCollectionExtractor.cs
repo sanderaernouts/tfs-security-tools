@@ -12,7 +12,7 @@ namespace TfsSecurityTools.Extractors
 {
     public class TeamProjectCollectionExtractor
     {
-        public static IList<TeamProjectCollectionModel> Extract(string url)
+        public static IList<ProjectCollectionDescriptor> Extract(string url)
         {
             if (url == null)
                 throw new ArgumentNullException("url");

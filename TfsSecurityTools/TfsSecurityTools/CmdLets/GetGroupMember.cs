@@ -13,7 +13,7 @@ namespace TfsSecurityTools.CmdLets
     public class GetGroupMember : PSCmdlet
     {
         private string _collection;
-        private string _guid;
+        private string _teamFoundationId;
 
         [Parameter(Mandatory = true, Position = 1, ValueFromPipelineByPropertyName = true, ValueFromPipeline= true)]
         [Alias("CollectionUrl")]
@@ -26,15 +26,14 @@ namespace TfsSecurityTools.CmdLets
         [Parameter(Mandatory = true, Position = 2, ValueFromPipelineByPropertyName = true)]
         public string TeamFoundationId
         {
-            get { return _guid; }
-            set { _guid = value; }
+            get { return _teamFoundationId; }
+            set { _teamFoundationId = value; }
         }
 
         protected override void ProcessRecord()
-        {
-            IEnumerable<MemberModel> members = MembershipExtractor.Extract(_collection, _guid);
-            if (members != null)
-                WriteObject(members, true);
+        {       
+            ApplicationGroup groupWithMembers = MembershipExtractor.Extract(_collection, _teamFoundationId);
+            WriteObject(groupWithMembers, true);
         }
     }
 }

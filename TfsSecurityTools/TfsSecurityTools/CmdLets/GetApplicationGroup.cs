@@ -12,20 +12,27 @@ namespace TfsSecurityTools.CmdLets
     [Cmdlet(VerbsCommon.Get, "ApplicationGroup")]
     public class GetApplicationGroup : PSCmdlet
     {
+        private string[] _project = new string[0];
         private string[] _name = new string[0];
-
-        
-        private string _collection;
+        private string _collectionUrl;
 
         [Parameter(Mandatory = true, Position = 0, ValueFromPipelineByPropertyName = true)]
-        public string Collection
+        public string CollectionUrl
         {
-            get { return _collection; }
-            set { _collection = value; }
+            get { return _collectionUrl; }
+            set { _collectionUrl = value; }
         }
         
 
         [Parameter(Position = 1, ValueFromPipelineByPropertyName = true)]
+        [Alias("DisplayName", "ProjectDisplayName")]
+        public string[] Project
+        {
+            get { return _project; }
+            set { _project = value; }
+        }
+
+        [Parameter(Position = 2)]
         public string[] Name
         {
             get { return _name; }
@@ -33,15 +40,15 @@ namespace TfsSecurityTools.CmdLets
         }
         protected override void ProcessRecord()
         {
-            IEnumerable<ApplicationGroupModel> groups = null;
+            IEnumerable<ApplicationGroupDescriptor> groups = null;
 
-            if (_name.Count() == 0)
-                groups = ApplicationGroupExtractor.Extract(_collection);
+            if (_project.Count() == 0)
+                groups = ApplicationGroupExtractor.Extract(_collectionUrl, _name);
             else
             {
-                foreach (string name in _name)
+                foreach (string project in _project)
                 {
-                    groups = ApplicationGroupExtractor.Extract(_collection, name);
+                    groups = ApplicationGroupExtractor.Extract(_collectionUrl, _name, project);
                 }
             }
 

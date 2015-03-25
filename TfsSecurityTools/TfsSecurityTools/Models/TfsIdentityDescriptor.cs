@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace TfsSecurityTools.Models
 {
-    public abstract class TeamFoundationIdentityModelBase
+    public class TfsIdentityDescriptor
     {
-        public string CollectionUrl { get; set; }
         public string DisplayName { get; set; }
+
         public Guid TeamFoundationId { get; set; }
     }
 }

@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace TfsSecurityTools.Models
 {
-    public class TeamProjectCollectionModel
+    public class ApplicationGroup : ApplicationGroupDescriptor
     {
-        public string Name { get; set; }
-        public string Url { get; set; }
+        public TfsIdentityDescriptor[] Members { get; set; }
     }
 }
