@@ -12,27 +12,39 @@ namespace TfsSecurityTools.Extractors
 {
     public class TeamProjectCollectionExtractor
     {
-        public static IList<ProjectCollectionDescriptor> Extract(string url)
+        public static ProjectCollectionDescriptor[] Extract(string url)
         {
             if (url == null)
                 throw new ArgumentNullException("url");
-            
-            Uri uri = new Uri(url);
+
+            Uri tfsUri = new Uri(url);
 
             TfsConfigurationServer configurationServer =
-                    TfsConfigurationServerFactory.GetConfigurationServer(uri);
+                    TfsConfigurationServerFactory.GetConfigurationServer(tfsUri);
 
 
             ITeamProjectCollectionService tpcService = configurationServer.GetService<ITeamProjectCollectionService>();
-            
-            /*
+
+            List<ProjectCollectionDescriptor> collections = new List<ProjectCollectionDescriptor>();
+
             foreach (TeamProjectCollection tpc in tpcService.GetCollections())
             {
-                
+                collections.Add(WrapProjectCollection(tpc, tfsUri));
             }
-            */
 
-            throw new NotImplementedException();
+            return collections.ToArray();
+        }
+
+
+        private static ProjectCollectionDescriptor WrapProjectCollection(TeamProjectCollection collection, Uri baseUri)
+        {
+            string virtualDirectory = collection.VirtualDirectory.Replace("~", String.Empty);
+            Uri collectionUri = new Uri(baseUri, virtualDirectory);
+            return new ProjectCollectionDescriptor()
+            {
+                DisplayName = collection.Name,
+                Url = collection.ToString()
+            };
         }
     }
 }

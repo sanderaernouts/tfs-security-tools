@@ -25,9 +25,7 @@ namespace TfsSecurityTools.CmdLets
             foreach (var url in _urls)
             {
                 var collections = TeamProjectCollectionExtractor.Extract(url);
-
-                foreach (var collection in collections)
-                    WriteObject(collection);
+                WriteObject(collections, true);
             }
         }
     }

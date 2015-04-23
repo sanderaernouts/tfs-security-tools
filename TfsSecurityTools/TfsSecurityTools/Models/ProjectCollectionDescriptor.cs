@@ -9,6 +9,6 @@ namespace TfsSecurityTools.Models
     public class ProjectCollectionDescriptor
     {
         public string DisplayName { get; set; }
-        public string Uri { get; set; }
+        public string Url { get; set; }
     }
 }

@@ -17,7 +17,7 @@ New-Item -ItemType Directory -Path $modulePath | Out-Null
 
 #copy all items in this package directory except the Install.ps1 script itself
 Write-Host "Copying module files"
-Get-ChildItem * -File -Exclude Install.ps1 | Copy-Item -Destination $modulePath -Force
+Get-ChildItem $PSScriptRoot\* -File -Recurse -Exclude Install.ps1 | Copy-Item -Destination $modulePath -Force
 
 Write-Host "Done, press any key to continue ..."
 
