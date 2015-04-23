@@ -38,7 +38,7 @@ namespace TfsSecurityTools.Extractors
         private static IEnumerable<ApplicationGroupDescriptor> ExtractCollectionGroups(TfsTeamProjectCollection collection, string[] names = null)
         {
             TeamFoundationIdentity[] groups = GetGroups(collection, collection.InstanceId.ToString(), names);
-            return WrapCollectionGroups(collection, groups);
+            return WrapApplicationGroups(collection, groups);
         }
 
         private static IEnumerable<ApplicationGroupDescriptor> ExtractProjectGroups(TfsTeamProjectCollection collection, string project, string[] names = null )
@@ -50,7 +50,7 @@ namespace TfsSecurityTools.Extractors
 
             TeamFoundationIdentity[] groups = GetGroups(collection, teamProject.Uri.AbsoluteUri, names);
 
-            return WrapProjectGroups(collection, teamProject, groups);
+            return WrapApplicationGroups(collection, groups);
         }
 
         private static TeamFoundationIdentity[] GetGroups(TfsTeamProjectCollection collection, string scopeId, string[] names = null)
@@ -79,14 +79,14 @@ namespace TfsSecurityTools.Extractors
             return matchedGroups;
         }
 
-        private static IEnumerable<ProjectCollectionApplicationGroupDescriptor> WrapCollectionGroups(TfsTeamProjectCollection collection, TeamFoundationIdentity[] groups)
+        private static IEnumerable<ApplicationGroupDescriptor> WrapApplicationGroups(TfsTeamProjectCollection collection, TeamFoundationIdentity[] groups)
         {
-            return groups.Select(group => WrapCollectionGroup(collection, group)).ToList();
+            return groups.Select(group => WrapApplicationGroup(collection, group)).ToList();
         }
 
-        private static ProjectCollectionApplicationGroupDescriptor WrapCollectionGroup(TfsTeamProjectCollection collection, TeamFoundationIdentity group)
+        private static ApplicationGroupDescriptor WrapApplicationGroup(TfsTeamProjectCollection collection, TeamFoundationIdentity group)
         {
-            return new ProjectCollectionApplicationGroupDescriptor()
+            return new ApplicationGroupDescriptor()
                 {
                     DisplayName = group.DisplayName,
                     TeamFoundationId = group.TeamFoundationId,
@@ -94,19 +94,5 @@ namespace TfsSecurityTools.Extractors
                     CollectionUrl = collection.Uri.ToString()
                 };
         }
-
-        private static IEnumerable<ApplicationGroupDescriptor> WrapProjectGroups(TfsTeamProjectCollection collection, Project project, TeamFoundationIdentity[] groups)
-        {
-            return groups.Select(group => new ProjectApplicationGroupDescriptor()
-            {
-                DisplayName = group.DisplayName,
-                TeamFoundationId = group.TeamFoundationId,
-                ProjectDisplayName = project.Name,
-                ProjectUri = project.Uri.AbsoluteUri.ToString(),
-                CollectionDisplayName = collection.DisplayName,
-                CollectionUrl = collection.Uri.ToString()
-            }).ToList();
-        }
-
     }
 }

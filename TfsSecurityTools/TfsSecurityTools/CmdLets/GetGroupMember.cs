@@ -14,6 +14,9 @@ namespace TfsSecurityTools.CmdLets
     {
         private string _collection;
         private string _teamFoundationId;
+        private string[] _name = null;
+        private bool _excludeGroups;
+        private bool _excludeUsers;
 
         [Parameter(Mandatory = true, Position = 1, ValueFromPipelineByPropertyName = true, ValueFromPipeline= true)]
         [Alias("CollectionUrl")]
@@ -30,10 +33,31 @@ namespace TfsSecurityTools.CmdLets
             set { _teamFoundationId = value; }
         }
 
+        [Parameter(Mandatory=false, Position=3)]
+        public string[] Name
+        {
+            get { return _name; }
+            set { _name = value; }
+        }
+
+        [Parameter(Mandatory = false, Position = 4)]
+        public SwitchParameter ExcludeGroups
+        {
+            get { return _excludeGroups; }
+            set { _excludeGroups = value; }
+        }
+
+        [Parameter(Mandatory = false, Position = 5)]
+        public SwitchParameter ExcludeUsers
+        {
+            get { return _excludeUsers; }
+            set { _excludeUsers = value; }
+        }
+
         protected override void ProcessRecord()
         {       
-            ApplicationGroup groupWithMembers = MembershipExtractor.Extract(_collection, _teamFoundationId);
-            WriteObject(groupWithMembers, true);
+            MembershipDescriptor[] members = MembershipExtractor.Extract(_collection, _teamFoundationId, _excludeGroups, _excludeUsers, _name);
+            WriteObject(members, true);
         }
     }
 }

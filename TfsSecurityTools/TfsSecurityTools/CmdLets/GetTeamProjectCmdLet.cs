@@ -12,24 +12,27 @@ namespace TfsSecurityTools.CmdLets
     [Cmdlet(VerbsCommon.Get, "TeamProject")]
     public class GetTeamProjectCmdLet : PSCmdlet
     {
-        private string[] _projectCollectionUrl;
+        private string _projectCollectionUrl;
+        private string[] _name = null;
 
         [Parameter(Mandatory=true, Position=1, ValueFromPipelineByPropertyName=true)]
-        public string[] ProjectCollectionUrl
+        public string ProjectCollectionUrl
         {
             get { return _projectCollectionUrl; }
             set { _projectCollectionUrl = value; }
         }
 
+        [Parameter(Mandatory=false, Position=2) ]
+        public string[] Name
+        {
+            get{return _name;}
+            set{_name = value;}
+        }
 
         protected override void ProcessRecord()
         {
-            foreach (var url in _projectCollectionUrl)
-            {
-                var projects = TeamProjectExtractor.Extract(url);
-                foreach (var project in projects)
-                    WriteObject(project);
-            }
+            var projects = TeamProjectExtractor.Extract(_projectCollectionUrl, _name);
+            WriteObject(projects, true);
         }
     }
 }

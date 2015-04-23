@@ -7,12 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TfsSecurityTools.Models;
+using TfsSecurityTools.Utils;
 
 namespace TfsSecurityTools.Extractors
 {
     public class MembershipExtractor
     {
-        public static ApplicationGroup Extract(string url, string id)
+        public static MembershipDescriptor[] Extract(string url, string id, bool excludeGroups, bool excludeUsers, string[] _name=null)
         {
             if (url == null)
                 throw new ArgumentNullException("url");
@@ -28,21 +29,43 @@ namespace TfsSecurityTools.Extractors
             TeamFoundationIdentity[] identies = ims.ReadIdentities(guids, MembershipQuery.Expanded);
             TeamFoundationIdentity group = identies.First();
 
-            List<TfsIdentityDescriptor> membership = new List<TfsIdentityDescriptor>();
+            IdentityDescriptor[] members = group.Members;
+            int totalMembers = members.Count();
 
-            foreach (IdentityDescriptor member in group.Members)
+            List<MembershipDescriptor> descriptors = new List<MembershipDescriptor>();
+
+            for (int i = 0; i < totalMembers; i++)
             {
-                TeamFoundationIdentity i = ims.ReadIdentity(member, MembershipQuery.None, ReadIdentityOptions.ExtendedProperties);
-                membership.Add(new TfsIdentityDescriptor() { DisplayName = i.DisplayName, TeamFoundationId = i.TeamFoundationId });
+                TeamFoundationIdentity member = ims.ReadIdentity(members[i], MembershipQuery.None, ReadIdentityOptions.ExtendedProperties);
+                //if name patterns are past and there is no match, skip the identity
+                if (_name != null && !GlobMatcher.Match(_name, member.DisplayName))
+                    continue;
+
+                //if identity is an container, a group, and we want to exclude groups, skip the identity
+                if (member.IsContainer && excludeGroups)
+                    continue;
+
+                //if identity is not an container, a useraccount, and we want to exclude users, skip the identity
+                if (!member.IsContainer && excludeUsers)
+                    continue;
+                MembershipDescriptor descriptor = WrapMembership(collection, group, member);
+                descriptors.Add(descriptor);
             }
 
-            return new ApplicationGroup()
+            return descriptors.ToArray();
+        }
+
+        private static MembershipDescriptor WrapMembership(TfsTeamProjectCollection collection, TeamFoundationIdentity group, TeamFoundationIdentity member)
+        {
+            return new MembershipDescriptor()
             {
-                DisplayName = group.DisplayName,
-                TeamFoundationId = Guid.Parse(id),
-                Members = membership.ToArray()
+                DisplayName = member.DisplayName,
+                TeamFoundationId = member.TeamFoundationId,
+                Collection = collection.DisplayName,
+                CollectionUrl = collection.Uri.ToString(),
+                Group = group.DisplayName,
+                GroupId = group.TeamFoundationId
             };
-            
         }
     }
 }

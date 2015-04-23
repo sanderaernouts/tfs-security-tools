@@ -45,11 +45,9 @@
       <Private>True</Private>
       <HintPath>..\packages\System.Management.Automation_PowerShell_3.0.6.3.9600.17400\lib\net40\System.Management.Automation.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CmdLets\GetApplicationGroup.cs" />
@@ -62,17 +60,13 @@
     <Compile Include="Extractors\TeamProjectExtractor.cs" />
     <Compile Include="Models\ApplicationGroup.cs" />
     <Compile Include="Models\ApplicationGroupDescriptor.cs" />
-    <Compile Include="Models\ProjectApplicationGroup.cs" />
-    <Compile Include="Models\ProjectApplicationGroupDescriptor.cs" />
-    <Compile Include="Models\ProjectCollectionApplicationGroup.cs" />
-    <Compile Include="Models\ProjectCollectionApplicationGroupDescriptor.cs" />
+    <Compile Include="Models\MembershipDescriptor.cs" />
     <Compile Include="Models\ProjectCollectionDescriptor.cs" />
     <Compile Include="Models\ProjectDescriptor.cs" />
     <Compile Include="Models\TfsIdentityDescriptor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\GlobMatcher.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="Install.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

@@ -6,12 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TfsSecurityTools.Models;
+using TfsSecurityTools.Utils;
 
 namespace TfsSecurityTools.Extractors
 {
     public class TeamProjectExtractor
     {
-        public static List<ProjectDescriptor> Extract(string projectCollectionUrl)
+        public static IEnumerable<ProjectDescriptor> Extract(string projectCollectionUrl, string[] names = null)
         {
             if(projectCollectionUrl == null)
                 throw new ArgumentNullException("url");
@@ -21,7 +22,11 @@ namespace TfsSecurityTools.Extractors
 
             WorkItemStore store = tfs.GetService<WorkItemStore>();
 
-            return WrapProjects(store.Projects);
+            List<ProjectDescriptor> descripors = WrapProjects(store.Projects);
+            
+            if(names !=null)
+                return descripors.Where(x=> GlobMatcher.Match(names, x.DisplayName));
+            return descripors;
         }
 
         private static List<ProjectDescriptor> WrapProjects(ProjectCollection projects)
