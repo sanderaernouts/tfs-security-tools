@@ -43,8 +43,22 @@ namespace TfsSecurityTools.Extractors
             return new ProjectCollectionDescriptor()
             {
                 DisplayName = collection.Name,
-                Url = collection.ToString()
+                Url = ConstructCollectionUrl(baseUri, collection)
             };
+        }
+
+        private static string ConstructCollectionUrl(Uri baseUri, TeamProjectCollection collection)
+        {
+            string baseUrl = baseUri.ToString();
+            //force a trailing slash to support URI combination further on
+            if (!baseUrl.EndsWith("/"))
+            {
+                baseUrl = baseUrl + "/";
+            }
+
+            string collectionDirectory = collection.VirtualDirectory.Replace("~/", String.Empty);
+
+            return baseUrl + collectionDirectory;
         }
     }
 }
