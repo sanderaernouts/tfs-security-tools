@@ -8,6 +8,10 @@ A PowerShell module to extract TFS group membership information on different lev
 * Get-GroupMember
 
 ##Instalation
+###Dependencies
+* Visual Studio Team Explorer 2013
+
+###Steps
 Go to https://github.com/sanderaernouts/tfs-security-tools/releases and download latest release of the TfsSecurityTools.zip archive. Unzip the archive and run the Install.ps1 script. This will place necesary files in your "%USERPROFILE%\Documents\WindowsPowerShell\Modules" folder.
 
 ##Uninstalation
@@ -52,3 +56,4 @@ The example below will give you all users (not groups) that are a member of the 
 ```powershell
 Get-TeamProject "https://yourtfs.com/tfs/collection" | Get-ApplicationGroup -Name "*Project Admin*" | Get-GroupMember -ExcludeGroups | Export-Csv "c:\tmp\export.csv"
 ```
+*For more examples, see the help documentation of each individual cmdlet*
