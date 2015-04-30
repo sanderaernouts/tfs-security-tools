@@ -16,7 +16,8 @@
     New-Item -ItemType Directory $packagingDir | Out-Null
     
     #gather files in the module TfsSecurityTools folder
-    Copy-Item $PSScriptRoot\..\TfsSecurityTools.psd1 -Destination $packagingDir
+    Copy-Item $PSScriptRoot\..\Minimatch.dll -Destination $packagingDir
+	Copy-Item $PSScriptRoot\..\TfsSecurityTools.psd1 -Destination $packagingDir
     Copy-Item $PSScriptRoot\..\TfsSecurityTools.dll -Destination $packagingDir
     Copy-Item $PSScriptRoot\..\TfsSecurityTools.dll-Help.xml -Destination $packagingDir
     Copy-Item $PSScriptRoot\..\Install.ps1 -Destination $packagingDir
